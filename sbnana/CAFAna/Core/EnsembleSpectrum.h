@@ -39,6 +39,14 @@ namespace ana
                      const std::vector<TruthVar>& univ_weis,
                      const TruthVar& cv_wei = kTruthUnweighted);
 
+    EnsembleSpectrum(const std::string& label, const Binning& bins,
+                     SpectrumLoaderBase& loader,
+                     const TruthVar& var,
+                     const TruthCut& truthcut,
+                     const SpillCut& spillcut,
+                     const std::vector<SystShifts>& univ_shifts,
+                     const TruthVar& cv_wei = kTruthUnweighted);
+
     Spectrum Nominal() const {return fNom;}
     unsigned int NUniverses() const {return fUnivs.size();}
     Spectrum Universe(unsigned int i) const

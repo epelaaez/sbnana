@@ -58,6 +58,23 @@ namespace ana
   }
 
   //----------------------------------------------------------------------
+  EnsembleSpectrum::EnsembleSpectrum(const std::string& label, const Binning& bins,
+                     SpectrumLoaderBase& loader,
+                     const TruthVar& var,
+                     const TruthCut& truthcut,
+                     const SpillCut& spillcut,
+                     const std::vector<SystShifts>& univ_shifts,
+                     const TruthVar& cv_wei)
+
+    : fNom(label, bins, loader, var, truthcut, spillcut, kNoShift, cv_wei)
+  {
+    fUnivs.reserve(univ_shifts.size());
+    for (const SystShifts& ss: univ_shifts) {
+      fUnivs.emplace_back(label, bins, loader, var, truthcut, spillcut, ss, cv_wei);
+    }
+  }
+
+  //----------------------------------------------------------------------
   TGraphAsymmErrors* EnsembleSpectrum::ErrorBand(double exposure,
                                                  EExposureType expotype,
                                                  EBinType bintype) const
